@@ -10,8 +10,13 @@ const TAG_PATH = "#!tag/"
  * what element is currently selected?
  */
 export class ViewState {
+        @observable inputText = 'test todo'
 	@observable selection = null;
-	processingHashChange = false;
+        processingHashChange = false;
+
+        @action changeInputText = (text) => {
+          this.inputText = text;
+        }
 
 	constructor(contactStore, tagStore) {
 		this.contactStore = contactStore;

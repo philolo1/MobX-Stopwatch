@@ -28,17 +28,45 @@ const muiTheme = getMuiTheme({
 	}
 });
 
+const TodoList = observer(({todoStore}) =>
+  (
+    <div>
+      {todoStore.todos.map((el) => 
+        <div key={el.id}>
+          {el.text}
+        </div>
+        )}
+      </div>
+  )
+);
+
+const TodoAdder = observer(({todoStore, viewState}) =>
+  (
+    <div>
+      <button onClick={
+        () => {
+          todoStore.createTodo(viewState.inputText);
+        }
+      }> Add </button>
+      <input 
+        onChange={(el) => viewState.changeInputText(el.target.value)} 
+        value={viewState.inputText}  />
+    </div>
+  )
+);
+
 @observer
 class Main extends React.Component {
 	viewState;
 
 	componentWillMount() {
 		this.props.contactStore.loadContacts();
-		this.viewState = new ViewState(this.props.contactStore, this.props.tagStore);
+                this.viewState = new ViewState(this.props.contactStore, this.props.tagStore);
+                this.props.todoStore.setViewState(this.viewState);
 	}
 
 	render() {
-		const {contactStore, tagStore} = this.props;
+		const {contactStore, tagStore, todoStore} = this.props;
 		const {viewState} = this;
 
 		let content;
@@ -53,20 +81,16 @@ class Main extends React.Component {
 			content = <span>"Please select a contact or tag"</span>
 		}
 
-		return (
-			<MuiThemeProvider muiTheme={muiTheme}>
-				<div>
-					<DevTools />
-					<Card className="sidebar">
-						<CardTitle title="My Contacts" />
-						<ContactsOverview contactStore={contactStore} viewState={viewState} />
-						<TagsOverview tagStore={tagStore} viewState={viewState} />
-					</Card>
-					<div className="content">
-						{content}
-					</div>
-				</div>
-			</MuiThemeProvider>
+                return (
+                  <div>
+                    <TodoAdder viewState={viewState} todoStore={todoStore} />
+                    You have {todoStore.length} elements.
+                    <TodoList todoStore={todoStore} />
+
+                    <p>
+                      Next item : {viewState.inputText} 
+                    </p>
+                                     </div>
 		);
 	}
 }

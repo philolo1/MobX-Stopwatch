@@ -5,6 +5,7 @@ import Main from './components/main';
 
 import {ContactStore} from './stores/contact-store';
 import {TagStore} from './stores/tag-store';
+import {TodoStore} from './stores/TodoStore';
 
 import {useStrict} from 'mobx';
 
@@ -15,11 +16,13 @@ injectTapEventPlugin();
 
 const tagStore = new TagStore();
 const contactStore = new ContactStore(tagStore);
+const todoStore = new TodoStore(); 
 
 ReactDOM.render(
 	<Main
 		contactStore={contactStore}
-		tagStore={tagStore}
+                tagStore={tagStore}
+                todoStore={todoStore}
 	/>,
 	document.getElementById('app')
 );
