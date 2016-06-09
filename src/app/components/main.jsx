@@ -55,6 +55,18 @@ const TodoAdder = observer(({todoStore, viewState}) =>
   )
 );
 
+const Timer = observer(({timerStore}) => {
+  return (
+    <div style={{fontSize: 30}}>
+      <p>
+        Display: {timerStore.display} 
+      </p>
+      <button style={{width: 40, height: 40}} onClick={() => timerStore.startTimer()}>Start</button>
+      <button style={{width: 40, height: 40}} onClick={() => timerStore.stopTimer()}>Stop</button> <br />
+    </div>
+  );
+});
+
 @observer
 class Main extends React.Component {
 	viewState;
@@ -66,7 +78,7 @@ class Main extends React.Component {
 	}
 
 	render() {
-		const {contactStore, tagStore, todoStore} = this.props;
+		const {contactStore, tagStore, todoStore, timerStore} = this.props;
 		const {viewState} = this;
 
 		let content;
@@ -83,14 +95,17 @@ class Main extends React.Component {
 
                 return (
                   <div>
-                    <TodoAdder viewState={viewState} todoStore={todoStore} />
-                    You have {todoStore.length} elements.
-                    <TodoList todoStore={todoStore} />
+                    <div>
+                      <TodoAdder viewState={viewState} todoStore={todoStore} />
+                      You have {todoStore.length} elements.
+                      <TodoList todoStore={todoStore} />
 
-                    <p>
-                      Next item : {viewState.inputText} 
-                    </p>
-                                     </div>
+                      <p>
+                        Next item : {viewState.inputText} 
+                      </p>
+                    </div>
+                    <Timer timerStore={timerStore} />
+                  </div>
 		);
 	}
 }
