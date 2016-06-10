@@ -30,10 +30,12 @@
     "webpack-dev-server": "^1.14.0"
   },
   "dependencies": {
+    "format-number-with-string": "0.0.2",
     "material-ui": "0.15.0-alpha.1",
     "mobx": "^2.2.0",
     "mobx-react": "^3.3.0",
     "mobx-react-devtools": "^4.2.0",
+    "moment": "^2.13.0",
     "node-uuid": "^1.4.7",
     "react": "0.14.3",
     "react-dom": "0.14.3",

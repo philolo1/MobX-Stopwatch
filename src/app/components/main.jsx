@@ -22,88 +22,78 @@ import {TagsOverview} from './tags-overview';
 import {ContactView} from './contact-view';
 import {TagView} from './tag-view';
 
-const muiTheme = getMuiTheme({
-	palette: {
-		accent1Color: deepOrange500
-	}
-});
-
-const TodoList = observer(({todoStore}) =>
-  (
-    <div>
-      {todoStore.todos.map((el) => 
-        <div key={el.id}>
-          {el.text}
-        </div>
-        )}
-      </div>
-  )
-);
-
-const TodoAdder = observer(({todoStore, viewState}) =>
-  (
-    <div>
-      <button onClick={
-        () => {
-          todoStore.createTodo(viewState.inputText);
-        }
-      }> Add </button>
-      <input 
-        onChange={(el) => viewState.changeInputText(el.target.value)} 
-        value={viewState.inputText}  />
-    </div>
-  )
-);
+const TimerDisplay = ({timer}) => {
+  return (
+    <p style={{fontSize: 15}}>
+      {timer.display}
+    </p>
+  );
+};
 
 const Timer = observer(({timerStore}) => {
+
+  let firstButton;
+  let secondButton;
+
+  if (!timerStore.isRunning) {
+    secondButton = (
+      <button 
+        style={{width: 40, height: 40}} 
+        onClick={() => timerStore.startTimer()}>
+        Start
+      </button>
+    );
+
+    firstButton = (
+      <button 
+        style={{width: 40, height: 40}} 
+        onClick={() => timerStore.resetTimer()}>
+        Reset 
+      </button>
+    );
+  } else {
+    secondButton = (
+      <button 
+        style={{width: 40, height: 40}} 
+        onClick={() => timerStore.stopTimer()}>
+        Stop 
+      </button>
+    );
+
+    firstButton = (
+      <button 
+        style={{width: 40, height: 40}} 
+        onClick={() => timerStore.lapTimer()}>
+        Lap
+      </button>
+    );
+  }
+
   return (
     <div style={{fontSize: 30}}>
       <p>
-        Display: {timerStore.display} 
+        Display: {timerStore.mainDisplay} 
       </p>
-      <button style={{width: 40, height: 40}} onClick={() => timerStore.startTimer()}>Start</button>
-      <button style={{width: 40, height: 40}} onClick={() => timerStore.stopTimer()}>Stop</button> <br />
+      {firstButton}
+      {secondButton}
+      <p style={{fontSize: 20}}>
+        Laps:
+      </p>
+        <div>
+          {timerStore.laps.reverse().map((el) => <TimerDisplay key={el.id} timer={el} / >)}
+        </div>
     </div>
   );
 });
 
 @observer
 class Main extends React.Component {
-	viewState;
-
-	componentWillMount() {
-		this.props.contactStore.loadContacts();
-                this.viewState = new ViewState(this.props.contactStore, this.props.tagStore);
-                this.props.todoStore.setViewState(this.viewState);
-	}
 
 	render() {
-		const {contactStore, tagStore, todoStore, timerStore} = this.props;
-		const {viewState} = this;
-
-		let content;
-		if (isContact(viewState.selection)) {
-			content = <ContactView
-							contact={viewState.selection}
-							viewState={viewState}
-					  />;
-		} else if (isTag(viewState.selection)) {
-			content = <TagView tag={viewState.selection} />;
-		} else {
-			content = <span>"Please select a contact or tag"</span>
-		}
+		const {timerStore} = this.props;
 
                 return (
                   <div>
-                    <div>
-                      <TodoAdder viewState={viewState} todoStore={todoStore} />
-                      You have {todoStore.length} elements.
-                      <TodoList todoStore={todoStore} />
-
-                      <p>
-                        Next item : {viewState.inputText} 
-                      </p>
-                    </div>
                     <Timer timerStore={timerStore} />
                   </div>
 		);
