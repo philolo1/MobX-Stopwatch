@@ -85,6 +85,7 @@ export class TimerStore {
 
   @action resetTimer() {
     this.timer.reset();
+    this.laps = [];
     this.isRunning = false;
   }
 
