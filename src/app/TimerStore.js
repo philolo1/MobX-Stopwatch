@@ -1,5 +1,4 @@
-import * as superagent from 'superagent';
-import {observable, computed, action} from "mobx";
+import {observable, computed, action} from 'mobx';
 import {v4} from 'node-uuid';
 import moment from 'moment';
 import format from 'format-number-with-string';
@@ -28,12 +27,12 @@ export class Timer {
   }
 
   @computed get display() {
-    let tenMilliSeconds = parseInt(this.totalMilliSeconds / 10);
+    const tenMilliSeconds = parseInt(this.totalMilliSeconds / 10, 10);
 
-    let seconds = parseInt(tenMilliSeconds / 100);
-    let minutes = parseInt(seconds/ 60);
+    const seconds = parseInt(tenMilliSeconds / 100, 10);
+    const minutes = parseInt(seconds / 60, 10);
 
-    return minutes + ':' + format(seconds % 60, '00') + ':' + format(tenMilliSeconds % 100, '00');
+    return `${minutes} : ${format(seconds % 60, '00')} :  ${format(tenMilliSeconds % 100, '00')}`;
   }
 }
 
