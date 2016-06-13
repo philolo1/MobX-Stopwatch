@@ -2,11 +2,8 @@ html {
   font-family: 'Roboto', sans-serif;
 }
 
-body {
-  font-size: 13px;
-  line-height: 20px;
-  padding: 40px;
-  background: #e2e2e2;
+.body {
+  margin: 0px;
 }
 
 .sidebar {
