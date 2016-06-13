@@ -16,9 +16,7 @@
 
   "plugins": [
     "standard",
-    "promise",
-    "react",
-    "react-native"
+    "react"
   ],
 
   "globals": {

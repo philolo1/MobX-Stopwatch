@@ -1,8 +1,8 @@
-# MobX-contact list
+# MobX example
 
 ```
 npm install
 npm start
 ```
 
-[MobX](https://github.com/mobxjs/mobx) demo project used in ReactAmsterdam 2016 talk. Does routing, shows devtools, some basic CRUD operations.
+This is a simple stopwatch example base on the template of [MobX](https://github.com/mobxjs/mobx). 
