@@ -16,7 +16,7 @@ const TimerDisplay = ({timer, text}) => {
     >
       <div
         style={{fontSize: 30,
-          fontFamily: 'HelveticaNeue-UltraLight',
+          fontFamily: 'AvenirNext-UltraLight',
           color: '#7f8083',
           padding: 20,
           flex: 1,
@@ -27,7 +27,7 @@ const TimerDisplay = ({timer, text}) => {
       <div
         style={{fontSize: 30,
           padding: 20,
-          fontFamily: 'HelveticaNeue-UltraLight',
+          fontFamily: 'AvenirNext-UltraLight',
           color: '#7f8083',
         }}
       >
@@ -38,7 +38,7 @@ const TimerDisplay = ({timer, text}) => {
 };
 
 const ButtonStyle = {
-  fontFamily: 'HelveticaNeue-UltraLight',
+  fontFamily: 'AvenirNext-UltraLight',
   fontSize: 20,
   width: 72,
   height: 72,
@@ -105,7 +105,7 @@ const Main = observer(({timerStore}) => {
           background: 'white',
           height: 120,
           fontSize: 60,
-          fontFamily: 'HelveticaNeue-UltraLight',
+          fontFamily: 'AvenirNext-UltraLight',
           border: 'solid #cecfd0',
           display: 'flex',
           alignItems: 'center',
