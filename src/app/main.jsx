@@ -70,8 +70,8 @@ const Main = observer(({timerStore}) => {
           {timerStore.lapData.map((el) =>
             <TimerDisplay
               key={el.lap.id}
-              timer={el.lap}
               leftText={el.text}
+              rightText={el.lap.display}
             />
             )}
         </div>

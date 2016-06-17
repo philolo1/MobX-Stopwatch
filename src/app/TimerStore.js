@@ -91,7 +91,7 @@ export class TimerStore {
     for (let i = 0; i < this.laps.length; i++) {
       data.push({
         lap: this.laps[i],
-        text: `Lap ${i + 1}`,
+        text: `Lap ${i + 1}`
       });
     }
     return data.reverse();
