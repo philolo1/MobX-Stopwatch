@@ -13,5 +13,5 @@ ReactDOM.render(
   <Main
     timerStore={timerStore}
   />,
-document.getElementById('app')
+  document.getElementById('app')
 );

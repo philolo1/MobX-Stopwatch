@@ -5,52 +5,8 @@
 
 import React from 'react';
 import {observer} from 'mobx-react';
-
-const TimerDisplay = ({timer, text}) => {
-  return (
-    <div
-      style={{
-        borderBottom: '1px solid #d9dae0',
-        display: 'flex',
-      }}
-    >
-      <div
-        style={{fontSize: 30,
-          fontFamily: 'AvenirNext-UltraLight',
-          color: '#7f8083',
-          padding: 20,
-          flex: 1,
-        }}
-      >
-        {text}
-      </div>
-      <div
-        style={{fontSize: 30,
-          padding: 20,
-          fontFamily: 'AvenirNext-UltraLight',
-          color: '#7f8083',
-        }}
-      >
-        {timer.display}
-      </div>
-    </div>
-  );
-};
-
-const ButtonStyle = {
-  fontFamily: 'AvenirNext-UltraLight',
-  fontSize: 20,
-  width: 72,
-  height: 72,
-  margin: 24,
-  padding: 0,
-  cursor: 'pointer',
-  letterSpacing: 1,
-  border: 0,
-  borderRadius: '50%',
-  outline: 'none',
-  background: 'white',
-};
+import {TimerDisplay} from './TimerDisplay';
+import {buttonStyle, mainStyle} from './styles';
 
 const Main = observer(({timerStore}) => {
   let firstButton;
@@ -59,7 +15,7 @@ const Main = observer(({timerStore}) => {
   if (!timerStore.isRunning) {
     secondButton = (
       <button
-        style={{...ButtonStyle, color: '#4bd761'}}
+        style={{...buttonStyle, color: '#4bd761'}}
         onClick={() => timerStore.startTimer()}
       >
         start
@@ -68,7 +24,7 @@ const Main = observer(({timerStore}) => {
 
     firstButton = (
       <button
-        style={ButtonStyle}
+        style={buttonStyle}
         onClick={() => timerStore.resetTimer()}
       >
         reset
@@ -81,7 +37,7 @@ const Main = observer(({timerStore}) => {
   } else {
     secondButton = (
       <button
-        style={{...ButtonStyle, color: '#fd3d2a'}}
+        style={{...buttonStyle, color: '#fd3d2a'}}
         onClick={() => timerStore.stopTimer()}
       >
         stop
@@ -90,7 +46,7 @@ const Main = observer(({timerStore}) => {
 
     firstButton = (
       <button
-        style={ButtonStyle}
+        style={buttonStyle}
         onClick={() => timerStore.lapTimer()}
       >
         lap
@@ -101,20 +57,12 @@ const Main = observer(({timerStore}) => {
   return (
     <div style={{fontSize: 30}}>
       <div
-        style={{
-          background: 'white',
-          height: 120,
-          fontSize: 60,
-          fontFamily: 'AvenirNext-UltraLight',
-          border: 'solid #cecfd0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'}}
+        style={mainStyle.display}
       >
         {timerStore.mainDisplay}
       </div>
       <div>
-        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <div style={mainStyle.buttons}>
           {firstButton}
           {secondButton}
         </div>
@@ -123,7 +71,7 @@ const Main = observer(({timerStore}) => {
             <TimerDisplay
               key={el.lap.id}
               timer={el.lap}
-              text={el.text}
+              leftText={el.text}
             />
             )}
         </div>
