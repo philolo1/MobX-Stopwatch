@@ -1,15 +1,16 @@
-import {observable, computed, action} from 'mobx';
+import {observable, computed, action, runInAction} from 'mobx';
 import {v4} from 'node-uuid';
 import moment from 'moment';
 import format from 'format-number-with-string';
 
 export class Timer {
-  @observable milliseconds;
-  @observable savedMilliseconds;
+  @observable milliseconds = 0;
+  @observable savedMilliseconds = 0;
 
   constructor(initialMilliseconds = 0) {
-    this.milliseconds = initialMilliseconds;
-    this.savedMilliseconds = 0;
+    runInAction('Set observed state values', () => {
+      this.milliseconds = initialMilliseconds;
+    });
     this.id = v4();
   }
 
@@ -38,17 +39,11 @@ export class Timer {
 
 export class TimerStore {
 
-  @observable isRunning;
-  @observable timer;
+  @observable isRunning = false;
+  @observable timer = new Timer();
   @observable startTime;
 
-  @observable laps;
-
-  constructor() {
-    this.isRunning = false;
-    this.timer = new Timer();
-    this.laps = [];
-  }
+  @observable laps = [];
 
   @computed get mainDisplay() {
     return this.timer.display;
