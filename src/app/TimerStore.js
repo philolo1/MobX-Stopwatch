@@ -1,4 +1,4 @@
-import {observable, computed, action} from 'mobx';
+import {observable, computed, action, runInAction} from 'mobx';
 import {v4} from 'node-uuid';
 import moment from 'moment';
 import format from 'format-number-with-string';
@@ -8,9 +8,11 @@ export class Timer {
   @observable savedMilliseconds;
 
   constructor(initialMilliseconds = 0) {
-    this.milliseconds = initialMilliseconds;
-    this.savedMilliseconds = 0;
-    this.id = v4();
+    runInAction(() => {
+      this.milliseconds = initialMilliseconds;
+      this.savedMilliseconds = 0;
+      this.id = v4();
+    });
   }
 
   @action saveTime() {
@@ -45,9 +47,11 @@ export class TimerStore {
   @observable laps;
 
   constructor() {
-    this.isRunning = false;
-    this.timer = new Timer();
-    this.laps = [];
+    runInAction(() => {
+      this.isRunning = false;
+      this.timer = new Timer();
+      this.laps = [];
+    });
   }
 
   @computed get mainDisplay() {
